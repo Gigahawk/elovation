@@ -1,12 +1,12 @@
 services:
-  db:
-    ports:
-      - 5432:5432
-    image: postgres
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: password
+  #db:
+  #  ports:
+  #    - 5432:5432
+  #  image: postgres
+  #  volumes:
+  #    - ./tmp/db:/var/lib/postgresql/data
+  #  environment:
+  #    POSTGRES_PASSWORD: password
   web:
     build:
       context: .
@@ -16,5 +16,5 @@ services:
       - .:/elovation
     ports:
       - "4321:3000"
-    depends_on:
-      - db
+    #depends_on:
+    #  - db
