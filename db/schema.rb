@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_09_02_085813) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "games", force: :cascade do |t|
     t.string "name", null: false
     t.string "rating_type"
@@ -27,8 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_02_085813) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.bigint "player_id", null: false
-    t.bigint "team_id", null: false
+    t.integer "player_id", null: false
+    t.integer "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_memberships_on_player_id"
@@ -43,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_02_085813) do
   end
 
   create_table "rating_history_events", force: :cascade do |t|
-    t.bigint "rating_id", null: false
+    t.integer "rating_id", null: false
     t.integer "value", null: false
     t.float "trueskill_mean"
     t.float "trueskill_deviation"
@@ -53,8 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_02_085813) do
   end
 
   create_table "ratings", force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "player_id", null: false
+    t.integer "game_id", null: false
+    t.integer "player_id", null: false
     t.integer "value", null: false
     t.boolean "pro", null: false
     t.float "trueskill_mean"
@@ -66,7 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_02_085813) do
   end
 
   create_table "results", force: :cascade do |t|
-    t.bigint "game_id", null: false
+    t.integer "game_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_results_on_game_id"
@@ -74,7 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_02_085813) do
 
   create_table "teams", force: :cascade do |t|
     t.integer "rank"
-    t.bigint "result_id"
+    t.integer "result_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["result_id"], name: "index_teams_on_result_id"
