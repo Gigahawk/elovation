@@ -11,7 +11,11 @@
 <% end %>
 
 <%= form_for [@game, @result], html: {id: "form-results"} do |f| %>
-  <div class='form-fields'>
+  <div class='form-fields' style="width: 100%;">
+    <div style="width: 100%;">
+      <label for="result_created_at">Date and Time</label>
+      <%= f.datetime_select :created_at, {default: Time.current}, {class: "form-control"} %>
+    </div>
     <% @result.teams.each.with_index do |team, index| %>
       <div>
       <small>

@@ -16,18 +16,31 @@ class ResultService
       result.teams.build rank: team[:rank], player_ids: team[:players]
     end
 
+    # Use the datetime picker value to set created_at
+    # Rails datetime_select sends a hash of date parts, not a Time object
+    # This seems super hacky, is there a better way?
+    year  = params["created_at(1i)"].to_i
+    month = params["created_at(2i)"].to_i
+    day   = params["created_at(3i)"].to_i
+    hour  = params["created_at(4i)"].to_i
+    min   = params["created_at(5i)"].to_i
+    parsed_time = Time.zone.local(year, month, day, hour, min)
+    Result.record_timestamps = false
+    result.created_at = parsed_time
+    result.updated_at = Time.now
+
     if result.valid?
       Result.transaction do
         game.rater.update_ratings game, result.teams
-
         result.save!
-
+        Result.record_timestamps = true
         OpenStruct.new(
           success?: true,
           result: result
         )
       end
     else
+      Result.record_timestamps = true
       OpenStruct.new(
         success?: false,
         result: result
