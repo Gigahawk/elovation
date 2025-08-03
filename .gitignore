@@ -34,3 +34,4 @@ fly.toml
 coverage
 
 **.sqlite3
+**result
